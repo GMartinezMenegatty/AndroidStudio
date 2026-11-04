@@ -16,8 +16,13 @@ import com.example.myapplication.ui.theme.MyApplicationTheme
 
 class CicloVida : ComponentActivity() {
 
+    var tiempoInicio = 0L
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        tiempoInicio = System.currentTimeMillis()
+
         enableEdgeToEdge()
 
         setContent {
@@ -36,12 +41,45 @@ class CicloVida : ComponentActivity() {
 
     override fun onStart() {
         super.onStart()
+
+        tiempoInicio = System.currentTimeMillis()
+
         Log.d("Estado", "onStart")
     }
 
     override fun onResume() {
         super.onResume()
+
+        tiempoInicio = System.currentTimeMillis()
+
         Log.d("Estado", "onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        val tiempoFinal = System.currentTimeMillis()
+        val duracion = (tiempoFinal - tiempoInicio) / 1000.0
+
+        Log.d("Estado", "onPause: $duracion segundos")
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        val tiempoFinal = System.currentTimeMillis()
+        val duracion = (tiempoFinal - tiempoInicio) / 1000.0
+
+        Log.d("Estado", "onStop: $duracion segundos")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        val tiempoFinal = System.currentTimeMillis()
+        val duracion = (tiempoFinal - tiempoInicio) / 1000.0
+
+        Log.d("Estado", "onDestroy: $duracion segundos")
     }
 }
 
